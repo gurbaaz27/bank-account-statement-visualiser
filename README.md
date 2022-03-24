@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ## Help Log
 
-```bash
+```
 python main.py --help
 
 usage: main.py [-h] csvfile
@@ -30,7 +30,7 @@ optional arguments:
 
 ## Demo Usage
 
-```bash
+```
 python main.py <csvfile>
 
 Account Name         : Xxxx   
