@@ -10,7 +10,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Demo Usage
+## Help Log
 
 ```bash
 python main.py --help
@@ -27,6 +27,8 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
 ```
+
+## Demo Usage
 
 ```bash
 python main.py <csvfile>
