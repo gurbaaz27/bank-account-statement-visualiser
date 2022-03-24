@@ -13,19 +13,18 @@ pip install -r requirements.txt
 ## Help Log
 
 ```
-python main.py --help
-
-usage: main.py [-h] csvfile
+usage: main.py [-h] [--account-name] csvfile
 
 Quickly view your expenses and earnings from account statement provided by SBI.
 
 positional arguments:
-  csvfile   Absolute path for your account statement csv file. Download the account statement in excel format 
-            from SBI portal. Then replace all "," (commas) with "" (nil). Save the file in csv format using
-            'Save As' or 'Export to' option.
+  csvfile   Absolute path for your account statement csv file. Download the account statement in
+            excel format from SBI portal. Then replace all "," (commas) with "" (nil). Save the
+            file in csv format using 'Save As' or 'Export to' option.
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help      show this help message and exit
+  --account-name  Annotate account name on the plot
 ```
 
 ## Demo Usage
