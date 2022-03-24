@@ -30,7 +30,7 @@ def to_date(d: str):
 
 def clean_string2int(s: str):
     """
-    Example account number: "_00000037337448458"
+    Example account number: "_00000011222333444"
     """
     return int(re.sub("[^0-9]", "", s))
 
