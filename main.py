@@ -146,7 +146,7 @@ def prepare_account(df):
     return account
 
 
-def prepare_plots(account: Account):
+def prepare_plots(account: Account, account_name):
 
     money_map = {}
 
@@ -205,7 +205,8 @@ def prepare_plots(account: Account):
         ylabels.append(lab)
     plt.yticks(locs, ylabels)
 
-    plt.figtext(0.6, 0.9, "Name: " + account.account_name)
+    if account_name:
+        plt.figtext(0.6, 0.9, "Name: " + account.account_name)
 
     filename = (
         account.start_date.strftime("%d-%b")
@@ -229,6 +230,7 @@ def main():
             type=str,
             help="Absolute path for your account statement csv file.\nDownload the account statement in excel format from SBI portal.\nThen replace all \",\" (commas) with \"\" (nil).\nSave the file in csv format using 'Save As' or 'Export to' option.",
         )
+        parser.add_argument('--account-name', action='store_true', help="Annotate account name on the plot")
 
         args = parser.parse_args()
 
@@ -253,7 +255,7 @@ def main():
                 )
             )
 
-        filename = prepare_plots(account)
+        filename = prepare_plots(account, args.account_name)
 
         print(f"Plot has been saved successfully as {filename}")
 
