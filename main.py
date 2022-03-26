@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 import argparse
@@ -11,10 +12,22 @@ from matplotlib.dates import DateFormatter
 def read_file(filename):
     """
     Download the account statement in excel format from SBI portal.
-    Then replace all "," (commas) with "" (nil).
-    Save the file in csv format using "Save As" or "Export to" option.
     """
-    df = pd.read_csv(filename, sep="\t", header=None)
+    with open(filename) as f:
+        content = f.read()
+
+    content = content.replace(",", "").replace("\t", ",")
+
+    content = re.sub(" +", " ", content)
+
+    nfilename = filename.split(".")[0] + ".csv"
+
+    with open(nfilename, "w") as f:
+        f.write(content)    
+
+    df = pd.read_csv(nfilename, sep=",", header=None, names=[0,1,2,3,4,5,6,7])
+
+    os.remove(nfilename)
 
     df.fillna("-1", inplace=True)
 
@@ -106,7 +119,10 @@ def prepare_transactions(df):
 
         i += 1
 
-        if clean(df.iloc[i][0]) == "-1":
+        # if clean(df.iloc[i][0]) == "-1":
+        #     break
+
+        if clean(df.iloc[i][0]) == "**This is a computer generated statement and does not require a signature":
             break
 
     return txns
@@ -226,15 +242,15 @@ def main():
         DESCRIPTION = "Quickly view your expenses and earnings from account statement provided by SBI."
         parser = argparse.ArgumentParser(description=DESCRIPTION)
         parser.add_argument(
-            "csvfile",
+            "accountfile",
             type=str,
-            help="Absolute path for your account statement csv file.\nDownload the account statement in excel format from SBI portal.\nThen replace all \",\" (commas) with \"\" (nil).\nSave the file in csv format using 'Save As' or 'Export to' option.",
+            help="Absolute path for your account statement csv file.\nDownload the account statement in excel format from SBI portal and use it here.",
         )
         parser.add_argument('--account-name', action='store_true', help="Annotate account name on the plot")
 
         args = parser.parse_args()
 
-        df = read_file(args.csvfile)
+        df = read_file(args.accountfile)
 
         account = prepare_account(df)
 
