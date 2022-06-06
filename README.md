@@ -1,4 +1,4 @@
-# SBI Account Statement Visualiser
+# Bank Account Statement Visualiser
 
 ## Installation
 
