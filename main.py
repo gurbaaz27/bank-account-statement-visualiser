@@ -1,7 +1,9 @@
 import sys
 import argparse
+import traceback
 from datetime import datetime
 
+from banks.account import Account
 from banks.sbi import SBI
 from banks.hdfc import HDFC
 
@@ -13,6 +15,24 @@ def get_bank_account(bank: str, filename: str):
         return HDFC(filename)
     else:
         sys.exit("Invalid choice of bank. Current options: SBI, HDFC.")
+
+
+def print_metadata(account: Account):
+    for k, v in account.__dict__.items():
+        if k == "txns":
+            continue
+
+        key = " ".join(k.split("_"))
+        value = v
+
+        if type(v) == datetime:
+            value = v.strftime("%d %B %Y")
+
+        print(
+            "{:<20} : {:<20}".format(
+                key.title(), value.title() if type(value) == str else value
+            )
+        )
 
 
 def main():
@@ -39,22 +59,7 @@ def main():
 
         account = get_bank_account(args.bank.upper(), args.accountfile)
 
-        for k, v in account.__dict__.items():
-
-            if k == "txns":
-                continue
-
-            key = " ".join(k.split("_"))
-            value = v
-
-            if type(v) == datetime:
-                value = v.strftime("%d %B %Y")
-
-            print(
-                "{:<20} : {:<20}".format(
-                    key.title(), value.title() if type(value) == str else value
-                )
-            )
+        print_metadata(account)
 
         filename = account.prepare_plots(args.account_name)
 
@@ -62,9 +67,8 @@ def main():
 
         return 0
 
-    except Exception as e:
-        print(str(e))
-        return -1
+    except Exception:
+        traceback.print_exc()
 
 
 if __name__ == "__main__":
