@@ -13,24 +13,23 @@ pip install -r requirements.txt
 ## Help Log
 
 ```
-usage: main.py [-h] [--account-name] accountfile
+usage: main.py [-h] [--account-name] bank accountfile
 
-Quickly view your expenses and earnings from account statement provided by SBI.
+Quickly view your expenses and earnings from account statement provided by your bank.
 
 positional arguments:
-  accountfile     Absolute path for your account statement excel file. Download the account statement in excel format   
-                  from SBI portal and use it here.
+  bank            Your account statement's bank. Current options: SBI, HDFC
+  accountfile     Absolute path for your account statement xls file. Download the account statement in excel format from your bank portal and use it here.
 
 optional arguments:
   -h, --help      show this help message and exit
   --account-name  Annotate account name on the plot
-
 ```
 
 ## Demo Usage
 
 ```
-python main.py <csvfile>
+python main.py <bank> <csvfile>
 
 Account Name         : Xxxx   
 Address              : Xxxx
