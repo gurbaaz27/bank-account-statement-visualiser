@@ -1,5 +1,6 @@
 import re
 import os
+from typing import List
 import pandas as pd
 from banks.account import Account
 
@@ -81,11 +82,11 @@ class SBI(Account):
 
         txns = self.prepare_transactions(df)
 
-        self.account_name = account_name
-        self.address = address
-        self.account_number = self.clean_string2int(account_number)
-        self.branch = branch
-        self.start_date = self.to_date(start_date)
-        self.end_date = self.to_date(end_date)
-        self.date_of_download = self.to_date(date_of_download)
-        self.txns = txns
+        self.account_name: str = account_name
+        self.address: str = address
+        self.account_number: str = self.clean_string2int(account_number)
+        self.branch: str = branch
+        self.start_date: str = self.to_date(start_date)
+        self.end_date: str = self.to_date(end_date)
+        self.date_of_download: str = self.to_date(date_of_download)
+        self.txns: List[self.Transaction] = txns
