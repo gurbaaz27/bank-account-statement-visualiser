@@ -18,7 +18,7 @@ usage: main.py [-h] [--account-name] accountfile
 Quickly view your expenses and earnings from account statement provided by SBI.
 
 positional arguments:
-  accountfile     Absolute path for your account statement csv file. Download the account statement in excel format   
+  accountfile     Absolute path for your account statement excel file. Download the account statement in excel format   
                   from SBI portal and use it here.
 
 optional arguments:
