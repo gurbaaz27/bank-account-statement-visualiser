@@ -16,7 +16,7 @@ class Account:
             credit: float,
             balance: float,
         ):
-            self.date = Account.to_date(date)
+            self.date = date
             self.description = description
             self.ref = ref
             self.debit = debit
@@ -26,13 +26,6 @@ class Account:
 
     def __init__(self):
         pass
-
-    @staticmethod
-    def to_date(d: str):
-        """
-        Example string: "1 Mar 2022"
-        """
-        return datetime.strptime(d, "%d %b %Y")
 
     @staticmethod
     def clean_string2int(s: str):
@@ -50,7 +43,10 @@ class Account:
 
     @staticmethod
     def clean(s: str):
-        return " ".join(s.strip().split())
+        if isinstance(s, str):
+            return " ".join(s.strip().split())
+        else:
+            return s
 
     def read_file(self, filename):
         """
@@ -127,7 +123,9 @@ class Account:
             plt.figtext(0.6, 0.9, "Name: " + self.account_name)
 
         filename = (
-            self.start_date.strftime("%d-%b")
+            self.bank.lower()
+            + "--"
+            + self.start_date.strftime("%d-%b")
             + "--"
             + self.end_date.strftime("%d-%b")
             + ".png"

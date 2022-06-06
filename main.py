@@ -19,6 +19,9 @@ def get_bank_account(bank: str, filename: str):
 
 def print_metadata(account: Account):
     for k, v in account.__dict__.items():
+        if v == "":
+            continue
+        
         if k == "txns":
             continue
 
@@ -26,11 +29,11 @@ def print_metadata(account: Account):
         value = v
 
         if type(v) == datetime:
-            value = v.strftime("%d %B %Y")
+            value = v.strftime("%d %B %Y")        
 
         print(
             "{:<20} : {:<20}".format(
-                key.title(), value.title() if type(value) == str else value
+                key.title(), value.title() if type(value) == str and key != "Bank" else value
             )
         )
 

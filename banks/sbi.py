@@ -2,12 +2,21 @@ import re
 import os
 from typing import List
 import pandas as pd
+from datetime import datetime
 from banks.account import Account
 
 
 class SBI(Account):
     def __init__(self, filename):
+        self.bank = "SBI"
         self.prepare(filename)
+
+    @staticmethod
+    def to_date(d: str):
+        """
+        Example string: "1 Mar 2022"
+        """
+        return datetime.strptime(d, "%d %b %Y")
 
     def read_file(self, filename):
         with open(filename) as f:
@@ -37,7 +46,7 @@ class SBI(Account):
 
         while True:
             txn = self.Transaction(
-                date=self.clean(df.iloc[i][0]),
+                date=self.to_date(self.clean(df.iloc[i][0])),
                 description=self.clean(df.iloc[i][2]),
                 ref=self.clean(df.iloc[i][3]),
                 debit=self.to_float(self.clean(df.iloc[i][4])),
@@ -49,8 +58,8 @@ class SBI(Account):
 
             i += 1
 
-            # if self.clean(df.iloc[i][0]) == "-1":
-            #     break
+            if self.clean(df.iloc[i][0]) == "-1":
+                break
 
             if (
                 self.clean(df.iloc[i][0])
@@ -68,7 +77,7 @@ class SBI(Account):
         address = ""
 
         for i in range(1, 4):
-            address += df.iloc[i][1] + " "
+            address += df.iloc[i][1] + ", "
 
         address = self.clean(address)
 

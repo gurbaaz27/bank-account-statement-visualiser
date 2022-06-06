@@ -38,7 +38,7 @@ Branch               : Xxxx
 Start Date           : 01 February 2022    
 End Date             : 28 February 2022    
 Date Of Download     : 23 March 2022       
-Plot has been saved successfully as 01-Feb--28-Feb.png
+Plot has been saved successfully as <bank>--01-Feb--28-Feb.png
 ```
 
 ![](assets/demo.jpg)
